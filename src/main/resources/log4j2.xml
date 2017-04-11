@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN"
+	packages="org.apache.logging.log4j.core,net.kencochrane.raven.log4j2">
+    <Properties>
+        <Property name="log-path">platform-logs</Property>
+    </Properties>
+    <Appenders>
+        <Console name="console-log" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] %c{1} %M - %msg%n"/>
+        </Console>
+        <RollingFile name="info-log" fileName="${log-path}/dev-platform-info.log"
+             filePattern="${log-path}/platform-info-%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <pattern>[%level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] %c{1} %M - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+        <RollingFile name="error-log" fileName="${log-path}/dev-platform-error.log"
+             filePattern="${log-path}/platform-error-%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <pattern>[%level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] %c{1} %M - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="all" additivity="false">
+            <appender-ref ref="info-log" level="info"/>
+            <appender-ref ref="console-log" level="info"/>
+        </Root>
+    </Loggers>
+</Configuration>
+
